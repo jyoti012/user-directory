@@ -18,9 +18,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-  
     if @user.save
-      redirect_to @user
+      respond_to do |format|
+        UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
+        format.html { 
+          redirect_to(@user, notice: 'User was successfully created.') 
+        }
+      end
     else
       render 'new'
     end
@@ -28,18 +32,22 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-   
-    if @user.update(user_params)
-      redirect_to @user
-    else
-      render 'edit'
-    end
+      if @user.update(user_params)
+        respond_to do |format|
+          UserMailer.with(user: @user, type: 'Updated').user_info.deliver_later
+          format.html { 
+            redirect_to(@user, notice: 'User was successfully Updated') 
+          }
+        end
+      else
+        render 'edit'
+      end
   end
 
   def destroy
     @user = User.find(params[:id])
+    UserMailer.with(user: @user, type: 'Deleted').user_info.deliver_later
     @user.destroy
- 
     redirect_to users_path
   end
 
