@@ -1,5 +1,5 @@
  
-<%= form_with(model: @user, local: true) do |form| %>
+<%= form_with(model: @user, local: true, multipart: true) do |form| %>
  
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -34,6 +34,11 @@
   <p>
     <%= form.label :age %><br>
     <%= form.text_field :age %>
+  </p>
+  <p>
+    <%= form.label :avatar %><br>
+    <%= image_tag(@user.avatar, width: 200) %>
+    <%= form.file_field :avatar %>
   </p>
  
   <p>

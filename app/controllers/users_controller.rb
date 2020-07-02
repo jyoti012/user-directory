@@ -18,7 +18,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
+    if User.create!(user_params)
+      @user.save
       respond_to do |format|
         UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
         format.html { 
@@ -53,6 +54,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :username, :email, :age)
+    params.require(:user).permit(:firstname, :lastname, :username, :email, :age, :avatar)
   end
 end
