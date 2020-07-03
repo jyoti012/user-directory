@@ -37,7 +37,7 @@
   </p>
   <p>
     <%= form.label :avatar %><br>
-    <%= image_tag(@user.avatar, width: 200) %>
+    <%= image_tag(@user.avatar, width: 200) if @user.avatar.attached? %>
     <%= form.file_field :avatar %>
   </p>
  

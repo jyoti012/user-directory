@@ -18,12 +18,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if User.create!(user_params)
-      @user.save
+    @newuser = User.create!(user_params)
+    if @newuser
       respond_to do |format|
-        UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
+        UserMailer.with(user: @newuser, type: 'Created').user_info.deliver_later
         format.html { 
-          redirect_to(@user, notice: 'User was successfully created.') 
+          redirect_to(@newuser, notice: 'User was successfully created.') 
         }
       end
     else
