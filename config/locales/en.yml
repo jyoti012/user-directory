@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  app_name: 'User Directory'
   login: 
     title: 'Login'
     email: 'Email'
@@ -58,6 +59,7 @@ en:
     no_users: 'No users found'
   listing: 'User Listing'
   logout: 'Logout'
+  details: 'Details'
   error:
     unable_to_save: 'Unable to save user due to form errors'
   language: 

@@ -1,7 +1,8 @@
-<div style='float: right'>
+<div>
   <%= (t 'language.title') %>
-  <ul>
-    <li><%= link_to (t 'language.en'), current_page_params.merge(locale: 'en') %></li>
-    <li><%= link_to (t 'language.hi'), current_page_params.merge(locale: 'hi') %></li>
+  <br>  
+  <%= link_to (t 'language.en'), current_page_params.merge(locale: 'en') %>
+  <br>
+  <%= link_to (t 'language.hi'), current_page_params.merge(locale: 'hi') %>
   </ul>
 </div>
