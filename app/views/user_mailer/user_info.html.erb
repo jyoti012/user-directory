@@ -7,19 +7,19 @@
   <body>
     <h3>User details </h3>
     <p>
-      Firstname - <%= @user.firstname %>
+      <%= (t 'form.firstname') %> - <%= @user.firstname %>
     </p>
     <p>
-      Lastname - <%= @user.lastname %>
+      <%= (t 'form.lastname') %> - <%= @user.lastname %>
     </p>
     <p>
-      Username - <%= @user.username %>
+      <%= (t 'form.username') %> - <%= @user.username %>
     </p>
     <p>
       Email - <%= @user.email %>
     </p>
     <p>
-      Age - <%= @user.age %>
+      <%= (t 'form.age') %> - <%= @user.age %>
     </p>
   </body>
 </html>

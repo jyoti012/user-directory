@@ -1,25 +1,27 @@
+<%= render 'devise/shared/language_selector' %>
+
 <p>
-  <strong>Firstname:</strong>
+  <strong><%= (t 'form.firstname') %>:</strong>
   <%= @user.firstname %>
 </p>
  
 <p>
-  <strong>Lastname:</strong>
+  <strong><%= (t 'form.lastname') %>:</strong>
   <%= @user.lastname %>
 </p>
 
 <p>
-  <strong>Username:</strong>
+  <strong><%= (t 'form.username') %>:</strong>
   <%= @user.username %>
 </p>
 
 <p>
-  <strong>Email Id:</strong>
+  <strong><%= (t 'form.email') %>:</strong>
   <%= @user.email %>
 </p>
 
 <p>
-  <strong>Age:</strong>
+  <strong><%= (t 'form.age') %>:</strong>
   <%= @user.age %>
 </p>
 

@@ -1,1 +1,7 @@
-<p>Select language: <%= select_tag(:city_id, raw('<option value="1">English</option><option value="2">Hindi</option>')) %> </p>
+<div style='float: right'>
+  <%= (t 'language.title') %>
+  <ul>
+    <li><%= link_to (t 'language.en'), current_page_params.merge(locale: 'en') %></li>
+    <li><%= link_to (t 'language.hi'), current_page_params.merge(locale: 'hi') %></li>
+  </ul>
+</div>
