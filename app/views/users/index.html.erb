@@ -1,5 +1,5 @@
 
-<h1>Users Listing</h1>
+<h1>Users Listing</h1> <%= button_to "logout", destroy_user_session_path, method: :delete  %>
 <%= link_to 'New', new_user_path() %>
  
 <table>
