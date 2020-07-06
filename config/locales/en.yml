@@ -30,4 +30,29 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  login: 
+    title: 'Login'
+    email: 'Email'
+    password: 'Password'
+    submit: 'Log In'
+  form:
+    add: 'Add User'
+    id: 'ID'
+    firstname: 'Firstname'
+    lastname: 'Lastname'
+    username: 'Username'
+    email: 'Email Id'
+    encrypted_password: 'Password'
+    age: 'Age'
+    profile_picture: 'Profile Image'
+    submit: 'Submit'
+    back_btn: 'Back'
+    edit: 'Edit'
+    view: 'View'
+    delete:
+      title: 'Delete'
+      confirm: 'Are you sure?'
+    action: 'Action'
+    create_user: 'Create User'
+  error:
+    unable_to_save: 'Unable to save user due to form errors'
