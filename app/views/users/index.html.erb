@@ -34,7 +34,7 @@
           <td><%= user.lastname %></td>
           <td><%= user.username %></td>
           <td><%= user.email %></td>
-          <td><%= user.age %></td>
+          <td><%= user.age.to_i %></td>
           <td><%= link_to (t 'form.view'), user_path(user) %> | <%= link_to (t 'form.edit'), edit_user_path(user) %> | <%= link_to (t 'form.delete.title'), user_path(user),
                   method: :delete,
                   data: { confirm: (t 'form.delete.confirm') } %></td>

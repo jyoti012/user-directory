@@ -19,7 +19,7 @@
     <%= form.text_field :firstname %>
   </p>
   <p>
-    <%= form.label :lastname, (t 'form.firstname') %><br>
+    <%= form.label :lastname, (t 'form.lastname') %><br>
     <%= form.text_field :lastname %>
   </p>
   <p>
@@ -34,11 +34,6 @@
     <%= form.label :email, (t 'form.email') %><br>
     <%= form.text_field :email %>
   </p>
-  <%# <p>
-    <%= form.label :encrypted_password, (t 'form.encrypted_password') %> 
-    <%# <br> %>
-    <%# <%= form.text_field :encrypted_password %>
-  <%# </p>  %>
   <p>
     <%= form.label :avatar, (t ('form.profile_picture')) %><br>
     <%= image_tag(@user.avatar, width: 200) if @user.avatar.attached? %>

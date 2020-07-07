@@ -22,7 +22,7 @@
 
   <p>
     <strong><%= (t 'form.age') %>:</strong>
-    <%= @user.age %>
+    <%= @user.age.to_i %>
   </p>
 
   <%= image_tag(@user.avatar, width: 200) if @user.avatar.attached? %>

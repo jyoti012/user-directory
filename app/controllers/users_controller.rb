@@ -18,12 +18,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @newuser = User.create!(user_params)
+    @user.password = '123450'
+    @newuser = @user.save
     if @newuser
       respond_to do |format|
-        UserMailer.with(user: @newuser, type: 'Created').user_info.deliver_later
+        UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
         format.html { 
-          redirect_to(@newuser, notice: 'User was successfully created.') 
+          redirect_to(@user, notice: 'User was successfully created.') 
         }
       end
     else
@@ -54,6 +55,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:firstname, :lastname, :username, :email, :age, :avatar, :encrypted_password)
+    params.require(:user).permit(:firstname, :lastname, :username, :email, :age, :avatar)
   end
 end
