@@ -1,53 +1,53 @@
-<div class='container-fluid'>
-  <%= link_to (t 'form.back_btn'), users_path %>
-  <%= form_with(model: @user, local: true, multipart: true) do |form| %>
-    <% if @user.errors.any? %>
-      <div id='error_explanation'>
-        <h2>
-          <%= pluralize(@user.errors.count, 'error') %>
-          <%= t('error.unable_to_save') %>
-        </h2>
-        <ul>
-          <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <p>
-      <%= form.label :firstname, (t 'form.firstname') %><br>
-      <%= form.text_field :firstname %>
-    </p>
-    <p>
-      <%= form.label :lastname, (t 'form.firstname') %><br>
-      <%= form.text_field :lastname %>
-    </p>
-    <p>
-      <%= form.label :username, (t 'form.username') %><br>
-      <%= form.text_field :username %>
-    </p>
-    <p>
-      <%= form.label :age, (t 'form.age') %><br>
-      <%= form.text_field :age %>
-    </p>
-    <p>
-      <%= form.label :email, (t 'form.email') %><br>
-      <%= form.text_field :email %>
-    </p>
-    <p>
-      <%= form.label :encrypted_password, (t 'form.encrypted_password') %><br>
-      <%= form.text_field :encrypted_password %>
-    </p>
-    <p>
-      <%= form.label :avatar, (t ('form.profile_picture')) %><br>
-      <%= image_tag(@user.avatar, width: 200) if @user.avatar.attached? %>
-      <%= form.file_field :avatar %>
-    </p>
-    <p>
-      <%= form.submit (t 'form.submit'), class: 'btn btn-primary' %>
-    </p>
+<%= link_to (t 'form.back_btn'), users_path %>
+
+<%= form_with(model: @user, local: true, multipart: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id='error_explanation'>
+      <h2>
+        <%= pluralize(@user.errors.count, 'error') %>
+        <%= t('error.unable_to_save') %>
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-</div>
+  <p>
+    <%= form.label :firstname, (t 'form.firstname') %><br>
+    <%= form.text_field :firstname %>
+  </p>
+  <p>
+    <%= form.label :lastname, (t 'form.firstname') %><br>
+    <%= form.text_field :lastname %>
+  </p>
+  <p>
+    <%= form.label :username, (t 'form.username') %><br>
+    <%= form.text_field :username %>
+  </p>
+  <p>
+    <%= form.label :age, (t 'form.age') %><br>
+    <%= form.text_field :age %>
+  </p>
+  <p>
+    <%= form.label :email, (t 'form.email') %><br>
+    <%= form.text_field :email %>
+  </p>
+  <%# <p>
+    <%= form.label :encrypted_password, (t 'form.encrypted_password') %> 
+    <%# <br> %>
+    <%# <%= form.text_field :encrypted_password %>
+  <%# </p>  %>
+  <p>
+    <%= form.label :avatar, (t ('form.profile_picture')) %><br>
+    <%= image_tag(@user.avatar, width: 200) if @user.avatar.attached? %>
+    <%= form.file_field :avatar %>
+  </p>
+  <p>
+    <%= form.submit (t 'form.submit'), class: 'btn btn-primary' %>
+  </p>
+<% end %>
 <footer class='page-footer font-small blue'>
   <div class='footer-copyright text-center py-3'>
     <%= render 'devise/shared/language_selector' %>
