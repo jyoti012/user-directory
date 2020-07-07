@@ -109,4 +109,17 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'https://glacial-hamlet-17644.herokuapp.com/' }
+
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => 'smtp.gmail.com',
+    :port                 => 587,
+    :user_name            => ENV['MAILER_EMAIL'],
+    :password             => ENV['MAILER_PASSWORD'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
 end
