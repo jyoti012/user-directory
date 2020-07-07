@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       respond_to do |format|
         UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
         format.html { 
-          redirect_to(@user, notice: 'User was successfully created.') 
+          redirect_to(@user, notice: (t 'form.create_success')) 
         }
       end
     else
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         respond_to do |format|
           UserMailer.with(user: @user, type: 'Updated').user_info.deliver_later
           format.html { 
-            redirect_to(@user, notice: 'User was successfully Updated') 
+            redirect_to(@user, notice: (t 'form.update_success')) 
           }
         end
       else

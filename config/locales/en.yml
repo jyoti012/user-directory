@@ -57,6 +57,8 @@ en:
     action: 'Action'
     create_user: 'Create User'
     no_users: 'No users found'
+    create_success: 'User was successfully created'
+    update_success: 'User was successfully updated'
   listing: 'User Listing'
   logout: 'Logout'
   details: 'Details'

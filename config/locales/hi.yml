@@ -1,4 +1,24 @@
 hi:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            age:
+              blank: 'आयु रिक्त नहीं हो सकती'
+              not_a_number: 'उम्र का नंबर है'
+            firstname:
+              blank: 'फर्स्टनाम रिक्त नहीं हो सकता'
+              too_short: 'फर्स्टनाम बहुत छोटा नहीं हो सकता है'
+            lastname:
+              blank: 'अंतिम नाम रिक्त नहीं हो सकता'
+              too_short: 'अंतिम नाम बहुत छोटा नहीं हो सकता है'
+            username:
+              blank: 'उपयोगकर्ता नाम रिक्त नहीं हो सकता'
+              too_long: 'अधिकतम 8 वर्णों की अनुमति है'
+            email:
+              blank: 'ईमेल आईडी रिक्त नहीं हो सकता'
+              invalid: 'अमान्य ईमेल आईडी'
   app_name: 'उपयोगकर्ता निर्देशिका'
   login: 
     title: 'लॉग इन करें'
@@ -26,6 +46,8 @@ hi:
     action: 'कार्य'
     create_user: 'सृजन करना'
     no_users: 'कोई उपयोग्कर्ता नहीं मिले'
+    create_success: 'उपयोगकर्ता सफलतापूर्वक बनाया गया था'
+    update_success: 'उपयोगकर्ता को सफलतापूर्वक अपडेट किया गया था'
   listing: 'उपयोगकर्ताओं की सूची'
   logout: 'लॉग आउट'
   details: 'विवरण'
