@@ -1,11 +1,14 @@
 require 'rails_helper'
+require 'simplecov'
+SimpleCov.start 'rails'
 
 RSpec.describe User, :type => :model do
   subject {
     described_class.new(firstname: 'Jyoti',
                         lastname: 'Suvarna',
                         username: 'sjyoti',
-                        email: 'jyoti@ajackus.com',
+                        email: "erw@factory.com",
+                        password: '12345678',
                         age: '25')
   }
 
@@ -35,6 +38,11 @@ RSpec.describe User, :type => :model do
 
   it 'is not valid without a age' do
     subject.age = nil
+    expect(subject).to_not be_valid
+  end
+
+  it 'is not valid without a password' do
+    subject.password = nil
     expect(subject).to_not be_valid
   end
 
