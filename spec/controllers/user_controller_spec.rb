@@ -94,9 +94,9 @@ RSpec.describe UsersController, type: :controller do
         }.to change(User, :count).by(0)
       end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
+      it "re-renders the 'new' template" do
         post :create, params: { user: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
+        expect(response).to render_template('new')
       end
     end
   end
@@ -105,22 +105,21 @@ RSpec.describe UsersController, type: :controller do
     context "with valid parameters" do
       it "updates the requested user" do
         user = User.create! valid_attributes
-        patch :index, params: { user: new_attributes }, session: valid_session
+        put :update, params: { id: user.id, user: new_attributes }, session: valid_session
         user.reload
       end
       it "redirects to the user" do
         user = User.create! valid_attributes
-        patch :index, params: { user: new_attributes }, session: valid_session
-        # expect(response).to redirect_to(user_url(user))
-        expect(:get => "/users/1").to route_to(:controller => "users", :action => "show", "id"=>"1")
+        put :update, params: { id: user.id, user: new_attributes }, session: valid_session
+        expect(response).to redirect_to(user_url(user))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         user = User.create! valid_attributes
-        patch :index, params: { user: invalid_attributes }, session: valid_session
-        expect(response).to be_successful
+        put :update, params: { id: user.id, user: invalid_attributes }, session: valid_session
+        expect(response).to render_template('edit')
       end
     end
   end
