@@ -16,23 +16,23 @@
   <% end %>
   <p>
     <%= react_component('Label', { text: (t 'form.firstname') }) %><br>
-    <%= form.text_field :firstname %>
+    <%= react_component('Input', { name: 'user[firstname]' }) %>
   </p>
   <p>
     <%= react_component('Label', { text: (t 'form.lastname') }) %><br>
-    <%= form.text_field :lastname %>
+    <%= react_component('Input', { name: 'user[lastname]' }) %>
   </p>
   <p>
     <%= react_component('Label', { text: (t 'form.username') }) %><br>
-    <%= form.text_field :username %>
+    <%= react_component('Input', { name: 'user[username]' }) %>
   </p>
   <p>
     <%= react_component('Label', { text: (t 'form.age') }) %><br>
-    <%= form.text_field :age %>
+    <%= react_component('Input', { name: 'user[age]' }) %>
   </p>
   <p>
     <%= react_component('Label', { text: (t 'form.email') }) %><br>
-    <%= form.text_field :email %>
+    <%= react_component('Input', { name: 'user[email]' }) %>
   </p>
   <p>
     <%= react_component('Label', { text: (t 'form.profile_picture') }) %><br>
