@@ -1,30 +1,31 @@
 <div class='container-fluid'>
   <h4><%= (t 'details') %></h4>
   <p>
-    <strong><%= (t 'form.firstname') %>:</strong>
-    <%= @user.firstname %>
+    <%= react_component('Label', { text: (t 'form.firstname') }) %>
+    <strong><%= @user.firstname %></strong>
   </p>
   
   <p>
-    <strong><%= (t 'form.lastname') %>:</strong>
-    <%= @user.lastname %>
+    <%= react_component('Label', { text: (t 'form.lastname') }) %>
+    <strong><%= @user.lastname %></strong>
   </p>
 
   <p>
-    <strong><%= (t 'form.username') %>:</strong>
-    <%= @user.username %>
+    <%= react_component('Label', { text: (t 'form.username') }) %>
+    <strong><%= @user.username %></strong>
   </p>
 
   <p>
-    <strong><%= (t 'form.email') %>:</strong>
-    <%= @user.email %>
+    <%= react_component('Label', { text: (t 'form.email') }) %>
+    <strong><%= @user.email %></strong>
   </p>
 
   <p>
-    <strong><%= (t 'form.age') %>:</strong>
-    <%= @user.age.to_i %>
+    <%= react_component('Label', { text: (t 'form.age') }) %>
+    <strong><%= @user.age.to_i %></strong>
   </p>
 
+  <%= react_component('Label', { text: (t 'form.profile_picture') }) %>
   <%= image_tag(@user.avatar, width: 200) if @user.avatar.attached? %>
   <br>
   <%= link_to (t 'form.back_btn'), users_path %>

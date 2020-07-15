@@ -41,7 +41,7 @@
         </tr>
       <% end.empty? %>
         <br>
-        <%= (t 'form.no_users') %>
+        <%= react_component('Label', { text: (t 'form.no_users') }) %><br>
       <% end %>
     </tbody>
   </table>
