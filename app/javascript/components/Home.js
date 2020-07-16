@@ -1,32 +1,52 @@
-import React from "react"
+import React from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation
-} from "react-router-dom";
+import { Link } from 'react-router-dom';
 const GET_USERS_REQUEST = 'GET_USERS_REQUEST';
 const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
+const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
 
 function getUsers() {
   return dispatch => {
     dispatch({ type: GET_USERS_REQUEST });
     return fetch('/users')
     .then(res => res.json())
-    .then(json => dispatch(getThingsSuccess(json)))
+    .then(json => dispatch(getUsersSuccess(json)))
     .catch(err => console.log(err))
   }
 }
 
-export function getThingsSuccess(json) {
+function deleteUser(id) {
+  return dispatch => {
+    dispatch({ type: DELETE_USER_REQUEST });
+    let token = document.querySelector('meta[name="csrf-token"]').content;
+    fetch('/users/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': token
+      },
+      redirect: 'error',
+    }).then(resp => {
+        console.log(resp)
+        dispatch(deleteUserSuccess())
+        this.getUsers();
+      })
+  }
+}
+
+export function getUsersSuccess(json) {
   return {
     type: GET_USERS_SUCCESS,
     json
+  }  
+}
+
+export function deleteUserSuccess() {
+  return {
+    type: DELETE_USER_SUCCESS
   }  
 }
 
@@ -42,16 +62,6 @@ class Home extends React.Component {
       return <li>{user.firstname} - {user.email}</li>
     });
     return (
-      // <React.Fragment>
-      //   {/* <button onClick={() => this.props.getUsers()}>Show</button>
-      //   <br /> */}
-      //   { usersList }
-      // </React.Fragment>
-      // this.props.users.map(item => (
-      //   <React.Fragment key={item.id}>
-      //     <li>{item.firstname} - {item.email}</li>
-      //   </React.Fragment>
-      // ))
       <React.Fragment>
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -94,7 +104,7 @@ class Home extends React.Component {
                   <td>
                     <Link to={{ pathname: `/view/${item.id}` }}> View </Link> |
                     <Link to={{ pathname: `/edit/${item.id}` }}> Edit </Link> | 
-                    Delete
+                    <button class='primary-btn' onClick={() => this.props.deleteUser(item.id) }>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -111,21 +121,6 @@ const structuredSelector = createStructuredSelector({
   users: state => state.users
 });
 
-const mapDispatchToProps = { getUsers };
+const mapDispatchToProps = { getUsers, deleteUser };
 
 export default connect(structuredSelector, mapDispatchToProps)(Home);
-
-// const mapStateToProps = state => {
-//   return {
-//     users: state.users
-//   };
-// };
-
-// const actionCreators = {
-//   getUsers
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   actionCreators
-// )(Home)
