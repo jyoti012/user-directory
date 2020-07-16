@@ -2,10 +2,16 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where.not(role: '1')
+    render json: {
+      :users => @users
+    }.to_json
   end
 
   def show
     @user = User.find(params[:id])
+    render json: {
+      :user => @user
+    }.to_json
   end
 
   def new
@@ -14,6 +20,9 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    render json: {
+      :user => @user
+    }.to_json
   end
 
   def create
