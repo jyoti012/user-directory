@@ -1,10 +1,21 @@
 class UsersController < ApplicationController
 
-  def index
-    @users = User.where.not(role: '1')
-    render json: {
-      :users => @users
-    }.to_json
+  # def index
+  #   @users = User.where.not(role: '1')
+  #   render json: {
+  #     :users => @users
+  #   }.to_json
+  # end
+
+  def index 
+    if user_signed_in?
+      @users = User.where.not(role: '1')
+      render json: {
+        :users => @users
+      }.to_json
+    else
+      render json: {}, status: 401
+    end 
   end
 
   def show
@@ -24,20 +35,25 @@ class UsersController < ApplicationController
       :user => @user
     }.to_json
   end
-
-  def create
-    @user = User.new(user_params)
-    @user.password = '123450'
-    @newuser = @user.save
-    if @newuser
-      respond_to do |format|
-        UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
-        format.html { 
-          redirect_to(@user, notice: (t 'form.create_success')) 
-        }
+  
+  def create 
+    if user_signed_in? 
+      @user = User.new(user_params)
+        @user.password = '123450'
+        @newuser = @user.save
+      if @newuser
+        # render json: @user, status: :created 
+        respond_to do |format|
+          UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
+          format.html { 
+            redirect_to(@user, notice: (t 'form.create_success')) 
+          }
+        end
+      else 
+        render json: @user.errors, status: 400
       end
-    else
-      render 'new'
+    else 
+      render json: {}, status: 401
     end
   end
 

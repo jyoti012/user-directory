@@ -37,3 +37,6 @@ yarn-debug.log*
 vendor/*
 coverage/
 .vscode/launch.json
+
+# Ignore application configuration
+/config/application.yml

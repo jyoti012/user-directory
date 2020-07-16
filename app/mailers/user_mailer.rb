@@ -1,7 +1,7 @@
 class UserMailer < ApplicationMailer
 
-  default from: 'archangel.test07@gmail.com'
-  default to: 'archangel.test07+01@gmail.com'
+  default from: ENV['MAILER_EMAIL']
+  default to: ENV['MAILER_EMAIL_TO']
 
   def user_info
     @user = params[:user]
