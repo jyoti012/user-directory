@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   get '*page', to: 'directory#index', constraints: ->(req) do
     !req.xhr? && req.format.html?
   end
-  root 'directory#index'
+  root to: 'directory#index'
   resources :users
 end

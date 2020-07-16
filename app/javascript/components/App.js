@@ -11,7 +11,7 @@ class App extends React.Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route exact path='/users' render={() => <Home/>} ></Route>
+            <Route exact path='/' render={() => <Home/>} ></Route>
           </Switch>
         </BrowserRouter>
       </Provider>
