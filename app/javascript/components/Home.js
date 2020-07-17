@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react';
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ function getUsers() {
     dispatch({ type: GET_USERS_REQUEST });
     return fetch('/users')
     .then(res => res.json())
-    .then(json => dispatch(getUsersSuccess(json)))
+    .then(json => dispatch(getUsersSuccess(json.users)))
     .catch(err => console.log(err))
   }
 }
@@ -57,22 +57,18 @@ class Home extends React.Component {
   }
 
   render () {
-    const { users } = this.props;
-    const usersList = users.map(user => {
-      return <li>{user.firstname} - {user.email}</li>
-    });
     return (
       <React.Fragment>
-        <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">User Directory</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+        <div className="container-fluid">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="#">User Directory</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
                   <Link to="/add">Add</Link>
                 </li>
               </ul>
@@ -80,7 +76,7 @@ class Home extends React.Component {
               Logout
             </div>
           </nav>
-          <table class='table table-striped'>
+          <table className='table table-striped'>
             <thead>
               <tr>
                 <th scope="col">Id</th>
@@ -104,7 +100,7 @@ class Home extends React.Component {
                   <td>
                     <Link to={{ pathname: `/view/${item.id}` }}> View </Link> |
                     <Link to={{ pathname: `/edit/${item.id}` }}> Edit </Link> | 
-                    <button class='primary-btn' onClick={() => this.props.deleteUser(item.id) }>Delete</button>
+                    <button className='primary-btn' onClick={() => this.props.deleteUser(item.id) }>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -112,7 +108,6 @@ class Home extends React.Component {
           </table>
         </div>
       </React.Fragment>
-
     );
   }
 }
