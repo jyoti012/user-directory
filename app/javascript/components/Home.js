@@ -99,7 +99,9 @@ class Home extends React.Component {
                   <td>{item.age }</td>
                   <td>
                     <Link to={{ pathname: `/view/${item.id}` }}> View </Link> |
-                    <Link to={{ pathname: `/edit/${item.id}` }}> Edit </Link> | 
+                    <Link to={{ pathname: `/edit/${item.id}`, query: {
+                      user: item
+                    }  }}> Edit </Link> | 
                     <button className='primary-btn' onClick={() => this.props.deleteUser(item.id) }>Delete</button>
                   </td>
                 </tr>

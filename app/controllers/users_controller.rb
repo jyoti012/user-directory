@@ -58,7 +58,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    if user_signed_in? 
+      @user = User.find(params[:id])
       if @user.update(user_params)
         respond_to do |format|
           UserMailer.with(user: @user, type: 'Updated').user_info.deliver_later
@@ -69,6 +70,9 @@ class UsersController < ApplicationController
       else
         render 'edit'
       end
+    else 
+      render json: {}, status: 401
+    end
   end
 
   def destroy
