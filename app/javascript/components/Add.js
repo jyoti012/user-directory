@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { saveUser } from '../actions/users';
 
 class Add extends Component {
-
-  state = {
-    firstname: '',
-    lastname: '',
-    username: '',
-    email: '',
-    age: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: '',
+      lastname: '',
+      username: '',
+      email: '',
+      age: ''
+    }
   }
 
   handleChange = e => {
@@ -21,23 +26,7 @@ class Add extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let data = { user: this.state };
-    let token = document.querySelector('meta[name="csrf-token"]').content;
-    fetch('/users', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token
-      },
-      redirect: "error",
-      body: JSON.stringify(data)
-    })
-      .then(resp => {
-        resp.json()
-      })
-      .then(post => {
-        this.props.history.push('/');
-      });
+    this.props.saveUser(data);
   }
 
   render() {
@@ -70,5 +59,8 @@ class Add extends Component {
     )
   }
 }
+const structuredSelector = createStructuredSelector({});
 
-export default Add
+const mapDispatchToProps = { saveUser };
+
+export default connect(structuredSelector, mapDispatchToProps)(Add);

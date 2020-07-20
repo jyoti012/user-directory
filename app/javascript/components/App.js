@@ -5,7 +5,7 @@ import Home from './Home'
 import Add from './Add'
 import Edit from './Edit'
 import View from './View'
-import configureStore from '../configureStore';
+import configureStore from '../store/configureStore';
 
 const store = configureStore();
 
@@ -17,8 +17,8 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' render={() => <Home/>} ></Route>
             <Route exact path='/add' render={() => <Add/>} ></Route>
-            <Route exact path='/edit/:id' render={() => <Edit/>} ></Route>
-            <Route exact path='/view/:id' render={() => <View/>} ></Route>
+            <Route exact path='/edit/:id' render={(props) => <Edit {...props}/>} ></Route>
+            <Route exact path='/view/:id' render={(props) => <View {...props}/>} ></Route>
           </Switch>
         </div>
       </Provider>

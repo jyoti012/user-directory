@@ -2,26 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { isEqual } from 'lodash';
-
-const GET_USER_REQUEST = 'GET_USER_REQUEST';
-const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
-
-function getUser() {
-  return dispatch => {
-    dispatch({ type: GET_USER_REQUEST });
-    return fetch('/users/70/edit')
-    .then(res => res.json())
-    .then(json => dispatch(getUserSuccess(json.user)))
-    .catch(err => console.log(err))
-  }
-}
-
-export function getUserSuccess(json) {
-  return {
-    type: GET_USERS_SUCCESS,
-    json
-  }
-}
+import { getUser, updateUser } from '../actions/users';
 
 class Edit extends React.Component {
 
@@ -39,11 +20,6 @@ class Edit extends React.Component {
   }
 
   handleChange = (e, field) => {
-    // let newValue = e.target.value;
-    let key = e.target.name;
-    // this.setState({
-    //   [key]: newValue
-    // });
     const users = Object.assign({}, this.state.users, {[field]: e.target.value});
     this.setState(Object.assign({}, this.state, {users}));
   }
@@ -51,24 +27,13 @@ class Edit extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let data = { user: this.state.users };
-    let token = document.querySelector('meta[name="csrf-token"]').content;
-    fetch('/users/70', {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token
-      },
-      redirect: "error",
-      body: JSON.stringify(data)
-    })
-      .then(resp => {
-        resp.json()
-      })
+    this.props.updateUser(this.props.users.id, data)
+    location.reload()
   }
 
   componentDidMount() {
-    this.props.getUser();
+    const { match: { params } } = this.props;
+    this.props.getUser(params.id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -111,11 +76,10 @@ class Edit extends React.Component {
   }
 }
 
-
 const structuredSelector = createStructuredSelector({
   users: state => state.users
 });
 
-const mapDispatchToProps = { getUser };
+const mapDispatchToProps = { getUser, updateUser };
 
 export default connect(structuredSelector, mapDispatchToProps)(Edit);

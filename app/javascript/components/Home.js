@@ -2,53 +2,7 @@ import React, { Suspense } from 'react';
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { Link } from 'react-router-dom';
-const GET_USERS_REQUEST = 'GET_USERS_REQUEST';
-const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
-const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
-const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
-
-function getUsers() {
-  return dispatch => {
-    dispatch({ type: GET_USERS_REQUEST });
-    return fetch('/users')
-    .then(res => res.json())
-    .then(json => dispatch(getUsersSuccess(json.users)))
-    .catch(err => console.log(err))
-  }
-}
-
-function deleteUser(id) {
-  return dispatch => {
-    dispatch({ type: DELETE_USER_REQUEST });
-    let token = document.querySelector('meta[name="csrf-token"]').content;
-    fetch('/users/' + id, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token
-      },
-      redirect: 'error',
-    }).then(resp => {
-        console.log(resp)
-        dispatch(deleteUserSuccess())
-        this.getUsers();
-      })
-  }
-}
-
-export function getUsersSuccess(json) {
-  return {
-    type: GET_USERS_SUCCESS,
-    json
-  }  
-}
-
-export function deleteUserSuccess() {
-  return {
-    type: DELETE_USER_SUCCESS
-  }  
-}
+import { getUsers, deleteUser } from '../actions/users';
 
 class Home extends React.Component {
 
@@ -89,7 +43,7 @@ class Home extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.users.map(item => (
+              {this.props.users.length > 1 && this.props.users.map(item => (
                 <tr key={item.id}>
                   <td>{item.id }</td>
                   <td>{item.firstname }</td>
@@ -98,11 +52,9 @@ class Home extends React.Component {
                   <td>{item.email }</td>
                   <td>{item.age }</td>
                   <td>
-                    <Link to={{ pathname: `/view/${item.id}` }}> View </Link> |
-                    <Link to={{ pathname: `/edit/${item.id}`, query: {
-                      user: item
-                    }  }}> Edit </Link> | 
-                    <button className='primary-btn' onClick={() => this.props.deleteUser(item.id) }>Delete</button>
+                    <Link to={{ pathname: `/view/${item.id}`, query: {id: item.id} }}> View </Link> |
+                    <Link to={{ pathname: `/edit/${item.id}`, query: {id: item.id} }}> Edit </Link> |
+                    <button className='primary-btn' onClick={() => deleteUser(item.id) }>Delete</button>
                   </td>
                 </tr>
               ))}
