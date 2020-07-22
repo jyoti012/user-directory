@@ -1,13 +1,47 @@
 {
     "translations": {
-        "add": "Add",
-        "author": {
-            "title": "Author Name",
-            "value": "Tariqul"
+      "title": "User Directory",
+      "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Log In"
+      },
+      "form": {
+        "add": "Add User",
+        "edit_user": "Edit User",
+        "id": "ID",
+        "firstname": "Firstname",
+        "lastname": "Lastname",
+        "username": "Username",
+        "email": "Email ID",
+        "encrypted_password": "Password",
+        "age": "Age",
+        "profile_picture": "Profile Image",
+        "submit": "Submit",
+        "back_btn": "Back",
+        "edit": "Edit",
+        "view": "View",
+        "delete": {
+          "title": "Delete",
+          "confirm": "Are you sure?"
         },
-        "description": {
-            "title": "description",
-            "value": "Whenever I smell strong tobacco smoke when I'm in an enclosed space such as a room, train, or aircraft, I begin to get angry. There are several reasons. First, medical researchers have shown that secondhand smoke, that is, the smoke from other people's cigarettes, causes cancer and other health problems. If the smoke were car exhaust or burning trash, we would put out the fire and open the windows to get rid of the smoke. Second, it stinks. The smoke drifts away from the smoker and fills the room."
-        }
+        "action": "Action",
+        "create_user": "Create User",
+        "no_users": "No users found",
+        "create_success": "User was successfully created",
+        "update_success": "User was successfully updated"
+      },
+      "listing": "User Listing",
+      "logout": "Logout",
+      "details": "Details",
+      "error": {
+        "unable_to_save": "Unable to save user due to form errors"
+      },
+      "language": {
+        "title": "Select Language",
+        "en": "English",
+        "hi": "Hindi"
+      }
     }
 }

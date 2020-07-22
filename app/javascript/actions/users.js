@@ -32,7 +32,6 @@ export function deleteUser(id) {
       },
       redirect: 'error',
     }).then(resp => {
-        console.log(resp)
         dispatch(deleteUserSuccess())
         this.getUsers();
       })

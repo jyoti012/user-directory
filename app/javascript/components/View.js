@@ -32,24 +32,26 @@ class View extends React.Component {
 
   render () {
     const { firstname, lastname, email, username, age } = this.state.users;
+    const { t } = this.props;
+
     return (
       <React.Fragment>
-          <h4>User Details</h4>
-          <p>
-            <label htmlFor="firstname">Firstname: {firstname}</label>
-          </p>
-          <p>
-            <label htmlFor="lastname">Lastname: {lastname}</label>
-          </p>
-          <p>
-            <label htmlFor="username">Username: {username}</label>
-          </p>
-          <p>
-            <label htmlFor="email">Email: {email}</label>
-          </p>
-          <p>
-            <label htmlFor="age">Age: {age}</label>
-          </p>
+        <h4>{t('details')}</h4>
+        <p>
+          <label htmlFor="firstname">{t('form.firstname')}: {firstname}</label>
+        </p>
+        <p>
+          <label htmlFor="lastname">{t('form.lastname')}: {lastname}</label>
+        </p>
+        <p>
+          <label htmlFor="username">{t('form.username')}: {username}</label>
+        </p>
+        <p>
+          <label htmlFor="email">{t('form.email')}: {email}</label>
+        </p>
+        <p>
+          <label htmlFor="age">{t('form.age')}: {age}</label>
+        </p>
       </React.Fragment>
     );
   }

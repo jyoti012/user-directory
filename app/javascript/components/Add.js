@@ -30,31 +30,31 @@ class Add extends Component {
   }
 
   render() {
+    const {t} = this.props
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <h4>Add User Details</h4>
+        <h4>{t("form.add")}</h4>
         <p>
-          <label htmlFor="firstname">Firstname: </label>
+          <label htmlFor="firstname">{t("form.firstname")}: </label>
           <input type="text" name="firstname" onChange={this.handleChange} />
         </p>
         <p>
-          <label htmlFor="lastname">Lastname: </label>
+          <label htmlFor="lastname">{t("form.lastname")}: </label>
           <input type="text" name="lastname" onChange={this.handleChange} />
         </p>
         <p>
-          <label htmlFor="username">Username: </label>
+          <label htmlFor="username">{t("form.username")}: </label>
           <input type="text" name="username" onChange={this.handleChange} />
         </p>
         <p>
-          <label htmlFor="email">Email: </label>
+          <label htmlFor="email">{t("form.email")}: </label>
           <input type="text" name="email" onChange={this.handleChange} />
         </p>
         <p>
-          <label htmlFor="age">Age: </label>
+          <label htmlFor="age">{t("form.age")}: </label>
           <input type="text" name="age" onChange={this.handleChange} />
         </p>
-
-        <input type="submit" value="Add User" />
+        <input type="submit" value={t("form.add")} />
       </form>
     )
   }

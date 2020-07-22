@@ -11,11 +11,12 @@ class Home extends React.Component {
   }
 
   render () {
+    const { t } = this.props;
     return (
       <React.Fragment>
         <div className="container-fluid">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">User Directory</a>
+            <a className="navbar-brand" href="#">{t('title')}</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -23,27 +24,27 @@ class Home extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link to="/add">Add</Link>
+                  <Link to="/add">{t('form.add')}</Link>
                 </li>
               </ul>
               {/* <%= link_to (t 'logout'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-success my-2 my-sm-0' %> */}
-              Logout
+              // {t('logout')}
             </div>
           </nav>
           <table className='table table-striped'>
             <thead>
               <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Firstname</th>
-                <th scope="col">Lastname</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Age</th>
-                <th scope="col">Action</th>
+                <th scope="col">{t('form.id')}</th>
+                <th scope="col">{t('form.firstname')}</th>
+                <th scope="col">{t('form.lastname')}</th>
+                <th scope="col">{t('form.username')}</th>
+                <th scope="col">{t('form.email')}</th>
+                <th scope="col">{t('form.age')}</th>
+                <th scope="col">{t('form.action')}</th>
               </tr>
             </thead>
             <tbody>
-              {this.props.users.length > 1 && this.props.users.map(item => (
+              {this.props.users.length && this.props.users.map(item => (
                 <tr key={item.id}>
                   <td>{item.id }</td>
                   <td>{item.firstname }</td>
@@ -52,9 +53,9 @@ class Home extends React.Component {
                   <td>{item.email }</td>
                   <td>{item.age }</td>
                   <td>
-                    <Link to={{ pathname: `/view/${item.id}`, query: {id: item.id} }}> View </Link> |
-                    <Link to={{ pathname: `/edit/${item.id}`, query: {id: item.id} }}> Edit </Link> |
-                    <button className='primary-btn' onClick={() => deleteUser(item.id) }>Delete</button>
+                    <Link to={{ pathname: `/view/${item.id}`, query: {id: item.id} }}> {t('form.view')} </Link> |
+                    <Link to={{ pathname: `/edit/${item.id}`, query: {id: item.id} }}> {t('form.edit')} </Link> |
+                    <button className='primary-btn' onClick={() => this.props.deleteUser(item.id) }>{t('form.delete.title')}</button>
                   </td>
                 </tr>
               ))}
