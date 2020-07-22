@@ -2,31 +2,65 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { saveUser } from '../actions/users';
+import { withRouter } from "react-router-dom";
 
 class Add extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: '',
-      lastname: '',
-      username: '',
-      email: '',
-      age: ''
+      users: {
+        firstname: '',
+        lastname: '',
+        username: '',
+        email: '',
+        age: ''
+      },
+      error: ''
     }
+    this.saveUserSuccess = this.saveUserSuccess.bind(this);
   }
 
   handleChange = e => {
-    let newValue = e.target.value;
-    let key = e.target.name;
-    this.setState({
-      [key]: newValue
-    });
+    const users = Object.assign({}, this.state.users, {[e.target.name]: e.target.value});
+    this.setState(Object.assign({}, this.state, {users}));
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let data = { user: this.state };
-    this.props.saveUser(data);
+    let data = { user: this.state.users };
+    this.props.saveUser(data, this.saveUserSuccess);
+  }
+
+  saveUserSuccess(res) {
+    if (res.status === 'success') {
+      this.props.history.push('/')
+    }
+    this.setState({
+      error: res
+    })
+  }
+
+  showFormErrors = () => {
+    const {t} = this.props
+      return (
+        <div style={{color: 'red'}}>
+          {t('error.unable_to_save')}
+          {
+           Object.keys(this.state.error.errors).map(key =>
+              (<ul key={key}>
+                <li value={key}>
+                  <p>{key}</p>
+                  {
+                    this.state.error.errors[key].map((value, i) =>
+                      <p key={i}>{i + 1}. {value}</p>
+                    )
+                  }
+                </li>
+              </ul>)
+            )
+          }
+        </div>
+      )
   }
 
   render() {
@@ -34,6 +68,7 @@ class Add extends Component {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <h4>{t("form.add")}</h4>
+        {this.state.error && this.showFormErrors()}
         <p>
           <label htmlFor="firstname">{t("form.firstname")}: </label>
           <input type="text" name="firstname" onChange={this.handleChange} />
@@ -63,4 +98,4 @@ const structuredSelector = createStructuredSelector({});
 
 const mapDispatchToProps = { saveUser };
 
-export default connect(structuredSelector, mapDispatchToProps)(Add);
+export default connect(structuredSelector, mapDispatchToProps)(withRouter(Add));

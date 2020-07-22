@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import Home from "./Home";
 import Add from "./Add";
@@ -26,22 +26,22 @@ class App extends React.Component {
 
   renderRadioButtons = () => {
     return (
-      <div>
+      <div className='container'>
         <input
           checked={this.state.value === "en"}
           name="language"
           onChange={(e) => this.onLanguageHandle(e)}
           value="en"
           type="radio"
-        />
-        English &nbsp;
+        />&nbsp;
+        English &nbsp;&nbsp;
         <input
           name="language"
           value="hi"
           checked={this.state.value === "hi"}
           type="radio"
           onChange={(e) => this.onLanguageHandle(e)}
-        />
+        />&nbsp;
         Hindi
       </div>
     );
@@ -50,7 +50,7 @@ class App extends React.Component {
     const { t } = this.props;
     return (
       <Provider store={store}>
-        <div>
+        <BrowserRouter>
           {this.renderRadioButtons()}
           <Switch>
             <Route exact path="/" render={() => <Home t={t} />}></Route>
@@ -66,7 +66,7 @@ class App extends React.Component {
               render={(props) => <View {...props} t={t} />}
             ></Route>
           </Switch>
-        </div>
+        </BrowserRouter>
       </Provider>
     );
   }

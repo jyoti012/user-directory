@@ -15,8 +15,11 @@ class Edit extends React.Component {
         username: '',
         email: '',
         age: ''
-      }
+      },
+      error: '',
+      successMessage: ''
     }
+    this.saveUserSuccess = this.saveUserSuccess.bind(this);
   }
 
   handleChange = (e, field) => {
@@ -27,8 +30,45 @@ class Edit extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let data = { user: this.state.users };
-    this.props.updateUser(this.props.users.id, data)
-    location.reload()
+    this.props.updateUser(this.props.users.id, data, this.saveUserSuccess)
+  }
+
+  saveUserSuccess(res) {
+    const { t } = this.props;
+    if (res.status === 'success') {
+      this.setState({
+        error: '',
+        successMessage: t('form.update_success')
+      })
+    } else {
+      this.setState({
+        error: res,
+        successMessage: ''
+      })
+    }
+  }
+
+  showFormErrors = () => {
+    const {t} = this.props
+      return (
+        <div style={{color: 'red'}}>
+          {t('error.unable_to_save')}
+          {
+           Object.keys(this.state.error.errors).map(key =>
+              (<ul key={key}>
+                <li value={key}>
+                  <p>{key}</p>
+                  {
+                    this.state.error.errors[key].map((value, i) =>
+                      <p key={i}>{i + 1}. {value}</p>
+                    )
+                  }
+                </li>
+              </ul>)
+            )
+          }
+        </div>
+      )
   }
 
   componentDidMount() {
@@ -49,6 +89,8 @@ class Edit extends React.Component {
       <React.Fragment>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <h4>{t('form.edit_user')} {t('details')}</h4>
+            {this.state.error && this.showFormErrors()}
+            <h5>{this.state.successMessage}</h5>
           <p>
             <label htmlFor="firstname">{t('form.firstname')}: </label>
             <input type="text" value={firstname} onChange={(e)=>this.handleChange(e, 'firstname')} />

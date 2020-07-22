@@ -38,7 +38,7 @@ export function deleteUser(id) {
   }
 }
 
-export function saveUser(data) {
+export function saveUser(data, successFunction) {
   let token = document.querySelector('meta[name="csrf-token"]').content;
   return dispatch => {
     dispatch({ type: SAVE_USER_REQUEST });
@@ -53,7 +53,12 @@ export function saveUser(data) {
         body: JSON.stringify(data)
       })
     .then(res => res.json())
-    .then(json => dispatch(saveUserSuccess()))
+    .then(json => {
+      if (typeof successFunction === 'function') {
+        successFunction(json)
+      }
+      dispatch(saveUserSuccess());
+    })
     .catch(err => console.log(err))
   }
 };
@@ -69,7 +74,7 @@ export function getUser(id) {
   }
 }
 
-export function updateUser(id, data) {
+export function updateUser(id, data, successFunction) {
   let token = document.querySelector('meta[name="csrf-token"]').content;
   let url = `/users/${id}`;
   return dispatch => {
@@ -85,7 +90,13 @@ export function updateUser(id, data) {
         body: JSON.stringify(data)
       })
     .then(res => res.json())
-    .then(json => dispatch(updateUserSuccess()))
+    .then(json => {
+        if (typeof successFunction === 'function') {
+          successFunction(json)
+        }
+        dispatch(updateUserSuccess())
+      }
+    )
     .catch(err => console.log(err))
   }
 };

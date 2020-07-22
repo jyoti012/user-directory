@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   #   }.to_json
   # end
 
-  def index 
+  def index
     if user_signed_in?
       @users = User.where.not(role: '1')
       render json: {
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       }.to_json
     else
       render json: {}, status: 401
-    end 
+    end
   end
 
   def show
@@ -35,42 +35,45 @@ class UsersController < ApplicationController
       :user => @user
     }.to_json
   end
-  
-  def create 
-    if user_signed_in? 
+
+  def create
+    if user_signed_in?
       @user = User.new(user_params)
         @user.password = '123450'
         @newuser = @user.save
       if @newuser
-        # render json: @user, status: :created 
-        respond_to do |format|
           UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
-          format.html { 
-            redirect_to(@user, notice: (t 'form.create_success')) 
-          }
-        end
-      else 
-        render json: @user.errors, status: 400
+          render json: {
+            :user => @user,
+            :status => 'success'
+          }.to_json, status: 200
+      else
+        render json: {
+          :errors => @user.errors,
+          :status => 'error'
+          }, status: 400
       end
-    else 
+    else
       render json: {}, status: 401
     end
   end
 
   def update
-    if user_signed_in? 
+    if user_signed_in?
       @user = User.find(params[:id])
       if @user.update(user_params)
-        respond_to do |format|
           UserMailer.with(user: @user, type: 'Updated').user_info.deliver_later
-          format.html { 
-            redirect_to(@user, notice: (t 'form.update_success')) 
-          }
-        end
+          render json: {
+            :user => @user,
+            :status => 'success'
+          }.to_json, status: 200
       else
-        render 'edit'
+        render json: {
+          :errors => @user.errors,
+          :status => 'error'
+          }, status: 400
       end
-    else 
+    else
       render json: {}, status: 401
     end
   end
