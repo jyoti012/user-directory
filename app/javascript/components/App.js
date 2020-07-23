@@ -1,15 +1,16 @@
 import React from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, HashRouter as Router } from "react-router-dom";
+import createBrowserHistory from 'history/createBrowserHistory';
 import { Provider } from "react-redux";
 import Home from "./Home";
 import Add from "./Add";
 import Edit from "./Edit";
 import View from "./View";
-import { withTranslation, Trans } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import configureStore from "../store/configureStore";
 
 const store = configureStore();
-
+const history = createBrowserHistory();
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -50,7 +51,7 @@ class App extends React.Component {
     const { t } = this.props;
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
           {this.renderRadioButtons()}
           <Switch>
             <Route exact path="/" render={() => <Home t={t} />}></Route>
@@ -66,7 +67,7 @@ class App extends React.Component {
               render={(props) => <View {...props} t={t} />}
             ></Route>
           </Switch>
-        </BrowserRouter>
+        </Router>
       </Provider>
     );
   }
