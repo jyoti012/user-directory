@@ -31,7 +31,7 @@ class View extends React.Component {
   }
 
   render () {
-    const { firstname, lastname, email, username, age } = this.state.users;
+    const { firstname, lastname, email, username, age, attachment_url } = this.state.users;
     const { t } = this.props;
 
     return (
@@ -49,6 +49,10 @@ class View extends React.Component {
         <p>
           <label htmlFor="email">{t('form.email')}: {email}</label>
         </p>
+          <p>
+            <label htmlFor="age">{t("form.profile_picture")}: </label>
+            <img src={attachment_url} width='200' height='200'/>
+          </p>
         <p>
           <label htmlFor="age">{t('form.age')}: {age}</label>
         </p>

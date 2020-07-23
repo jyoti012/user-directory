@@ -45,12 +45,11 @@ export function saveUser(data, successFunction) {
     return fetch('/users', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': token
         },
         redirect: 'error',
-        body: JSON.stringify(data)
+        body: data
       })
     .then(res => res.json())
     .then(json => {
@@ -82,12 +81,11 @@ export function updateUser(id, data, successFunction) {
     return fetch(url, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': token
         },
         redirect: 'error',
-        body: JSON.stringify(data)
+        body: data
       })
     .then(res => res.json())
     .then(json => {

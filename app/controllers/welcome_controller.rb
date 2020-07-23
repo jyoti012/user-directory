@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!, only: [ :add, :edit, :view]
+  before_action :authenticate_user!, only: [:home, :add, :edit, :view]
   def home
   end
 
