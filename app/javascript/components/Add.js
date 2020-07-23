@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { saveUser } from "../actions/users";
 import { withRouter } from "react-router-dom";
+import { saveUser } from "../actions/users";
 
 class Add extends Component {
   constructor(props) {

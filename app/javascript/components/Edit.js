@@ -1,8 +1,10 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { isEqual } from "lodash";
 import { getUser, updateUser } from "../actions/users";
+
+const EditForm = lazy(() => import("./EditForm"));
 
 class Edit extends React.Component {
   constructor(props) {
@@ -37,7 +39,9 @@ class Edit extends React.Component {
     formData.append("user[username]", this.state.users.username);
     formData.append("user[email]", this.state.users.email);
     formData.append("user[age]", this.state.users.age);
-    this.state.users.avatar ? formData.append("user[avatar]", this.state.users.avatar) : null;
+    this.state.users.avatar
+      ? formData.append("user[avatar]", this.state.users.avatar)
+      : null;
     return formData;
   }
 
@@ -76,27 +80,6 @@ class Edit extends React.Component {
     );
   }
 
-  showFormErrors = () => {
-    const { t } = this.props;
-    return (
-      <div style={{ color: "red" }}>
-        {t("error.unable_to_save")}
-        {Object.keys(this.state.error.errors).map((key) => (
-          <ul key={key}>
-            <li value={key}>
-              <p>{key}</p>
-              {this.state.error.errors[key].map((value, i) => (
-                <p key={i}>
-                  {i + 1}. {value}
-                </p>
-              ))}
-            </li>
-          </ul>
-        ))}
-      </div>
-    );
-  };
-
   componentDidMount() {
     const {
       match: { params },
@@ -111,72 +94,19 @@ class Edit extends React.Component {
   }
 
   render() {
-    const { firstname, lastname, email, username, age, attachment_url } = this.state.users;
-    const { t } = this.props;
+
     return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <h4>
-            {t("form.edit_user")} {t("details")}
-          </h4>
-          {this.state.error && this.showFormErrors()}
-          <h5>{this.state.successMessage}</h5>
-          <p>
-            <label htmlFor="firstname">{t("form.firstname")}: </label>
-            <input
-              type="text"
-              value={firstname}
-              onChange={(e) => this.handleChange(e, "firstname")}
-            />
-          </p>
-          <p>
-            <label htmlFor="lastname">{t("form.lastname")}: </label>
-            <input
-              type="text"
-              value={lastname}
-              onChange={(e) => this.handleChange(e, "lastname")}
-            />
-          </p>
-          <p>
-            <label htmlFor="username">{t("form.username")}: </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => this.handleChange(e, "username")}
-            />
-          </p>
-          <p>
-            <label htmlFor="email">{t("form.email")}: </label>
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => this.handleChange(e, "email")}
-            />
-          </p>
-          <p>
-            <label htmlFor="age">{t("form.age")}: </label>
-            <input
-              type="text"
-              value={age}
-              onChange={(e) => this.handleChange(e, "age")}
-            />
-          </p>
-          <p>
-            <label htmlFor="age">{t("form.profile_picture")}: </label>
-            <img src={attachment_url} width='200' height='200'/>
-            <br/>
-            <input
-              name="avatar"
-              ref={(field) => (this.profilePictureField = field)}
-              type="file"
-              multiple={false}
-              accept="image/*"
-              onChange={(e) => this.handleProfilePictureChange(e)}
-            />
-          </p>
-          <input type="submit" value={t("form.edit")} />
-        </form>
-      </React.Fragment>
+      <Suspense fallback={<h1>{this.props.t("loading")}</h1>}>
+        <EditForm
+          users={this.state.users}
+          error={this.state.error}
+          successMessage={this.state.successMessage}
+          handleSubmit={this.handleSubmit.bind(this)}
+          handleChange={this.handleChange}
+          handleProfilePictureChange={this.handleProfilePictureChange}
+          t={this.props.t}
+        />
+      </Suspense>
     );
   }
 }
