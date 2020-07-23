@@ -35,7 +35,6 @@
 yarn-debug.log*
 .yarn-integrity
 vendor/*
-coverage/
 .vscode/launch.json
 
 # Ignore application configuration

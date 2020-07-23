@@ -1,17 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
-require 'simplecov'
-
-SimpleCov.start 'rails' do
-  # This adds a group (tab) to Simplecov's report that only shows coverage for
-  # files changes in the current branch. Useful for code reviews.
-  add_group 'Changed' do |source_file|
-    `git log --oneline --pretty="format:" --name-only master.. | awk 'NF' | sort -u`
-      .split("\n").detect do |filename|
-        source_file.filename.ends_with?(filename)
-      end
-  end
-end
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
