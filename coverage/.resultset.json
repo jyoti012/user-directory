@@ -51,16 +51,6 @@
           null
         ]
       },
-      "/Users/ajackusconsultancy/Documents/user-directory/app/helpers/search_helper.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          0,
-          null,
-          null
-        ]
-      },
       "/Users/ajackusconsultancy/Documents/user-directory/app/helpers/users_helper.rb": {
         "lines": [
           1,
@@ -169,22 +159,40 @@
           1,
           null,
           1,
-          13,
-          13,
+          14,
+          14,
           null,
           null,
           1,
           null,
           1,
-          13,
-          13,
+          14,
+          14,
           null,
           null,
           1,
-          13,
-          13,
-          13,
+          14,
+          14,
+          14,
           null,
+          null,
+          null
+        ]
+      },
+      "/Users/ajackusconsultancy/Documents/user-directory/app/controllers/welcome_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
           null,
           null
         ]
@@ -197,9 +205,9 @@
           1,
           null,
           1,
-          0,
-          0,
-          0,
+          1,
+          1,
+          1,
           null,
           null
         ]
@@ -220,26 +228,6 @@
           null,
           null,
           null,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/Users/ajackusconsultancy/Documents/user-directory/app/controllers/welcome_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
           0
         ],
         "branches": {
@@ -266,6 +254,6 @@
         }
       }
     },
-    "timestamp": 1595511234
+    "timestamp": 1595572667
   }
 }

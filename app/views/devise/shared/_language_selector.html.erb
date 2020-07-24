@@ -1,8 +1,7 @@
 <div>
   <%= (t 'language.title') %>
-  <br>  
-  <%= link_to (t 'language.en'), current_page_params.merge(locale: 'en') %>
   <br>
-  <%= link_to (t 'language.hi'), current_page_params.merge(locale: 'hi') %>
-  </ul>
+  <%= link_to (t 'language.en'), url_for( :locale => 'en' ) %>
+  <br>
+	<%= link_to (t 'language.hi'), url_for( :locale => 'hi' ) %>
 </div>

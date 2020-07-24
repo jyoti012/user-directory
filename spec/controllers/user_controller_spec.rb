@@ -43,11 +43,13 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-      it "returns a successful response" do
-        User.create! valid_attributes
-        get :index, params: {}, session: valid_session
-        expect(response).to be_successful
-      end
+    it "returns a successful response" do
+      User.create! valid_attributes
+      get :index, params: {}, session: valid_session
+      expect(response).to be_successful
+      response_body = JSON.parse(response.body)
+      expect(response_body[0]['attachment_url']).to be_present
+    end
   end
 
   describe "GET #show" do
