@@ -17,7 +17,7 @@ class Edit extends React.Component {
         email: "",
         age: "",
         avatar: "",
-        attachment_url: "",
+        attachment_url: "https://bulma.io/images/placeholders/1280x960.png",
       },
       error: "",
       successMessage: "",

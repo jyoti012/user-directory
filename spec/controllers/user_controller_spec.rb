@@ -47,8 +47,6 @@ RSpec.describe UsersController, type: :controller do
       User.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
-      response_body = JSON.parse(response.body)
-      expect(response_body[0]['attachment_url']).to be_present
     end
   end
 
@@ -98,7 +96,7 @@ RSpec.describe UsersController, type: :controller do
 
       it "re-renders the 'new' template" do
         post :create, params: { user: invalid_attributes }, session: valid_session
-        expect(response).to render_template('new')
+        expect(response).to have_http_status(400)
       end
     end
   end
@@ -121,7 +119,7 @@ RSpec.describe UsersController, type: :controller do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         user = User.create! valid_attributes
         put :update, params: { id: user.id, user: invalid_attributes }, session: valid_session
-        expect(response).to render_template('edit')
+        expect(response).to have_http_status(400)
       end
     end
   end

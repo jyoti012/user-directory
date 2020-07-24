@@ -10,13 +10,14 @@ class View extends React.Component {
     super(props);
     this.state = {
       users: {
-        firstname: '',
-        lastname: '',
-        username: '',
-        email: '',
-        age: ''
-      }
-    }
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        age: "",
+        attachment_url: "https://bulma.io/images/placeholders/1280x960.png",
+      },
+    };
   }
 
   componentDidMount() {
@@ -51,7 +52,7 @@ class View extends React.Component {
         </p>
           <p>
             <label htmlFor="age">{t("form.profile_picture")}: </label>
-            <img src={attachment_url} width='200' height='200'/>
+            {attachment_url ? (<img src={attachment_url} width='200' height='200'/>) : ''}
           </p>
         <p>
           <label htmlFor="age">{t('form.age')}: {age}</label>

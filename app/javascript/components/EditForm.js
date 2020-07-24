@@ -85,7 +85,7 @@ class EditForm extends React.Component {
         </p>
         <p>
           <label htmlFor="age">{t("form.profile_picture")}: </label>
-          <img src={attachment_url} width="200" height="200" />
+          {attachment_url ? (<img src={attachment_url} width="200" height="200" />) : ''}
           <br />
           <input
             name="avatar"
