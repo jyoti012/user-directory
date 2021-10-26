@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.password = '123450'
     @newuser = @user.save
+    
     if @newuser
       respond_to do |format|
         UserMailer.with(user: @user, type: 'Created').user_info.deliver_later
